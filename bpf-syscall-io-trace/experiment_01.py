@@ -7,6 +7,12 @@ import string
 from io import BytesIO
 from pathlib import Path
 
+
+def generate_random_bdata(chunk_size_bytes: int) -> BytesIO:
+        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=chunk_size_bytes))
+        bdata = BytesIO(random_string.encode('utf-8'))
+        return bdata
+
 def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: int):
     num_chunks = int(file_size_bytes / chunk_size_bytes)
 
@@ -19,14 +25,8 @@ def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: 
     offset = 0
     fd = os.open(file_name, os.O_RDWR)
     for i in range(num_chunks):
-        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=chunk_size_bytes))
-        bdata = BytesIO(random_string.encode('utf-8'))
-        bytes_written = os.pwrite(fd, bdata.read(), offset)
+        bytes_written = os.pwrite(fd, generate_random_bdata(chunk_size_bytes=chunk_size_bytes).read(), offset)
         offset += chunk_size_bytes
-        print(f'Random data..........{bdata.getvalue()}')
-        print(f'File offset..........{offset}')
-        print(f'Bytes Written........{bytes_written}')
-        print('------')
     os.close(fd)
 
 def main():
