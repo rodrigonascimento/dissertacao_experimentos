@@ -23,8 +23,8 @@ class Task:
         
         fd = os.open(self.file_name, os.O_RDWR)
         for i in range(num_chunks):
-            os.pread(fd, self.chunk_size_bytes, offset)
             if offset > self.file_size_bytes:
                 return
+            os.pread(fd, self.chunk_size_bytes, offset)
             offset += self.chunk_size_bytes
         os.close(fd)
