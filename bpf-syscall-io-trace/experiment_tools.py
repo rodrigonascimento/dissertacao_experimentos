@@ -11,10 +11,11 @@ def generate_random_bdata(chunk_size_bytes: int) -> BytesIO:
     return bdata
 
 class Task:
-    def __init__(self, file_name: Path, offset_range: dict, chunk_size_bytes: int) -> None:
+    def __init__(self, file_name: Path, offset_range: dict, file_size_bytes: int, chunk_size_bytes: int) -> None:
         self.file_name = file_name
         self.offset_range = offset_range
         self.chunk_size_bytes = chunk_size_bytes
+        self.file_size_bytes = file_size_bytes
 
     def read(self):
         num_chunks = int(self.offset_range['end'] / self.chunk_size_bytes)
@@ -23,5 +24,7 @@ class Task:
         fd = os.open(self.file_name, os.O_RDWR)
         for i in range(num_chunks):
             os.pread(fd, self.chunk_size_bytes, offset)
+            if offset > self.file_size_bytes:
+                return
             offset += self.chunk_size_bytes
         os.close(fd)
