@@ -19,7 +19,7 @@ def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: 
     if not file_name.exists():
         file_name.touch()
     else:
-        file_name.unlink()
+        os.remove(path=file_name)
         file_name.touch()
 
     offset = 0
