@@ -16,6 +16,10 @@ def main():
     os.pread(fd, chunk_size_bytes, int(file_size_bytes/2))
     print(f'Reading file..........offset {file_size_bytes-chunk_size_bytes}')
     os.pread(fd, chunk_size_bytes, file_size_bytes-chunk_size_bytes)
+    print(f'Reading file..........offset {int(file_size_bytes/4)}')
+    os.pread(fd, chunk_size_bytes, int(file_size_bytes/4))
+    print(f'Reading file..........offset {int(file_size_bytes/2)+chunk_size_bytes}')
+    os.pread(fd, chunk_size_bytes, int(file_size_bytes/2)+chunk_size_bytes)
     os.close(fd)
 
 if __name__ == '__main__':
