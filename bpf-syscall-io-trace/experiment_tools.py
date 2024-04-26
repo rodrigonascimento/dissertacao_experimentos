@@ -21,7 +21,7 @@ class Task:
         num_chunks = int(self.offset_range['end'] / self.chunk_size_bytes)
         offset = int(self.offset_range['start'])
         
-        fd = os.open(self.file_name, os.O_RDWR)
+        fd = os.open(self.file_name, os.O_RDONLY)
         for i in range(num_chunks):
             if offset > self.file_size_bytes-offset:
                 return
