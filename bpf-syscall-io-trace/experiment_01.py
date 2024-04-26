@@ -27,7 +27,7 @@ def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: 
         print(f'File offset..........{offset}')
         print(f'Bytes Written........{bytes_written}')
         print('------')
-
+    os.close(fd)
 
 def main():
     file_name = Path('./output_experiment_01.bdata')    
