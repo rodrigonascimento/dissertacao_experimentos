@@ -1,17 +1,9 @@
 #!/usr/bin/env python3
 
 import os
-import random
-import string
 
-from io import BytesIO
 from pathlib import Path
-
-
-def generate_random_bdata(chunk_size_bytes: int) -> BytesIO:
-        random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=chunk_size_bytes))
-        bdata = BytesIO(random_string.encode('utf-8'))
-        return bdata
+from experiment_tools import generate_random_bdata
 
 def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: int):
     num_chunks = int(file_size_bytes / chunk_size_bytes)
