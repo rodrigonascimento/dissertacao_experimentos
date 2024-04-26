@@ -1,2 +1,4 @@
 .venv
 bpf-syscall-io-trace/__pycache__
+.DS_Store
+bpf-syscall-io-trace/*.trc
