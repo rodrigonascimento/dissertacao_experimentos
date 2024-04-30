@@ -2,7 +2,7 @@
 
 import threading
 
-from experiment_tools import Task
+from experiment_tools import Task, create_file_pwrite
 from pathlib import Path
 
 
@@ -10,7 +10,10 @@ def main():
     file_name = Path('./output_experiment_01.bdata')    
     file_size_bytes = 10_485_760
     chunk_size_bytes = 1_048_576
-    
+
+    if not file_name.exists():
+        create_file_pwrite(file_name=file_name, file_size_bytes=file_size_bytes, chunk_size_bytes=chunk_size_bytes)
+
     t1_offset_range = dict()
     t1_offset_range['start'] = 0 
     t1_offset_range['end'] = (file_size_bytes/2) - 1
