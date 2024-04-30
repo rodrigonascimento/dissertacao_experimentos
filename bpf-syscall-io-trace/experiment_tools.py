@@ -10,6 +10,23 @@ def generate_random_bdata(chunk_size_bytes: int) -> BytesIO:
     bdata = BytesIO(random_string.encode('utf-8'))
     return bdata
 
+def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: int):
+    num_chunks = int(file_size_bytes / chunk_size_bytes)
+
+    if not file_name.exists():
+        file_name.touch()
+    else:
+        os.remove(path=file_name)
+        file_name.touch()
+
+    offset = 0
+    fd = os.open(file_name, os.O_RDWR)
+    for i in range(num_chunks):
+        bytes_written = os.pwrite(fd, generate_random_bdata(chunk_size_bytes=chunk_size_bytes).read(), offset)
+        offset += chunk_size_bytes
+    os.close(fd)
+
+
 class Task:
     def __init__(self, file_name: Path, offset_range: dict, file_size_bytes: int, chunk_size_bytes: int) -> None:
         self.file_name = file_name

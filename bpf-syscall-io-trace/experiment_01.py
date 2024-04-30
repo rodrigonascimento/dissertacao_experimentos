@@ -3,23 +3,7 @@
 import os
 
 from pathlib import Path
-from experiment_tools import generate_random_bdata
-
-def create_file_pwrite(file_name: Path, file_size_bytes: int, chunk_size_bytes: int):
-    num_chunks = int(file_size_bytes / chunk_size_bytes)
-
-    if not file_name.exists():
-        file_name.touch()
-    else:
-        os.remove(path=file_name)
-        file_name.touch()
-
-    offset = 0
-    fd = os.open(file_name, os.O_RDWR)
-    for i in range(num_chunks):
-        bytes_written = os.pwrite(fd, generate_random_bdata(chunk_size_bytes=chunk_size_bytes).read(), offset)
-        offset += chunk_size_bytes
-    os.close(fd)
+from experiment_tools import generate_random_bdata, create_file_pwrite
 
 def main():
     file_name = Path('./output_experiment_01.bdata')    
