@@ -6,7 +6,7 @@ from experiment_tools import create_file_pwrite
 from pathlib import Path
 
 def main():
-    file_name = Path('./output_experiment_01.bdata')    
+    file_name = Path('./output_experiment_02.bdata')    
     file_size_bytes = 10_485_760
     chunk_size_bytes = 1_048_576
 
