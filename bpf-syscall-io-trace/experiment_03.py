@@ -16,7 +16,7 @@ def main():
 
     t1_offset_range = dict()
     t1_offset_range['start'] = 0 
-    t1_offset_range['end'] = (file_size_bytes/2) - 1
+    t1_offset_range['end'] = (file_size_bytes/2)
     task1 = Task(file_name=file_name, offset_range=t1_offset_range, chunk_size_bytes=chunk_size_bytes, file_size_bytes=file_size_bytes)
     t1 = threading.Thread(target=task1.read, name='t1')
 
