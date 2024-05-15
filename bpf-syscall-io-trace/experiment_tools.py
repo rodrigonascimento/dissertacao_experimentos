@@ -3,6 +3,7 @@ import random
 import string
 
 from io import BytesIO
+from math import ceil
 from pathlib import Path
 
 def generate_random_bdata(chunk_size_bytes: int) -> BytesIO:
@@ -35,7 +36,7 @@ class Task:
         self.file_size_bytes = file_size_bytes
 
     def read(self):
-        num_chunks = int(self.offset_range['end'] / self.chunk_size_bytes)
+        num_chunks = ceil(self.offset_range['end']-self.offset_range['start'] / self.chunk_size_bytes) + 1
         offset = int(self.offset_range['start'])
         
         fd = os.open(self.file_name, os.O_RDONLY)
